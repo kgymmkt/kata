@@ -58,3 +58,5 @@ fabric.properties
 ### Intellij Patch ###
 *.iml
 
+build/
+.gradle/
