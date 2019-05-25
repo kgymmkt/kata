@@ -16,11 +16,30 @@ public class HolidayDrivingTimeDiscount implements DrivingTimeDiscount {
     
     @Override
     public boolean matches(LocalDateTime enteredAt, LocalDateTime exitedAt) {
-        return enteredAt.getDayOfWeek() == DayOfWeek.SUNDAY
-                || exitedAt.getDayOfWeek() == DayOfWeek.SATURDAY
-                || MonthDay.from(enteredAt).equals(JANUARY_SECOND)
-                || MonthDay.from(enteredAt).equals(JANUARY_THIRD)
-                || HolidayUtils.isHoliday(enteredAt.toLocalDate())
-                || HolidayUtils.isHoliday(exitedAt.toLocalDate());
+        return this.isSaturday(enteredAt) || this.isSaturday(exitedAt)
+                || this.isSunday(enteredAt) || this.isSunday(exitedAt)
+                || this.isJanuarySecond(enteredAt) || this.isJanuarySecond(exitedAt)
+                || this.isJanuaryThird(enteredAt) || this.isJanuaryThird(exitedAt)
+                || this.isHoliday(enteredAt) || this.isHoliday(exitedAt);
+    }
+    
+    private boolean isSunday(LocalDateTime dateTime) {
+        return dateTime.getDayOfWeek() == DayOfWeek.SUNDAY;
+    }
+    
+    private boolean isSaturday(LocalDateTime dateTime) {
+        return dateTime.getDayOfWeek() == DayOfWeek.SATURDAY;
+    }
+    
+    private boolean isHoliday(LocalDateTime dateTime) {
+        return HolidayUtils.isHoliday(dateTime.toLocalDate());
+    }
+    
+    private boolean isJanuarySecond(LocalDateTime dateTime) {
+        return MonthDay.from(dateTime).equals(JANUARY_SECOND);
+    }
+    
+    private boolean isJanuaryThird(LocalDateTime dateTime) {
+        return MonthDay.from(dateTime).equals(JANUARY_THIRD);
     }
 }
