@@ -3,9 +3,6 @@ package kata.ex01.model.discount.weekday;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import static kata.ex01.model.discount.DiscountTestUtils.*;
 import static org.assertj.core.api.Assertions.*;
 
