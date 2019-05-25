@@ -60,3 +60,4 @@ fabric.properties
 
 build/
 .gradle/
+out/

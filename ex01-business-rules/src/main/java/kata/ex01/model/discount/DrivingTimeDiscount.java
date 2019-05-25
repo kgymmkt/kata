@@ -1,7 +1,5 @@
 package kata.ex01.model.discount;
 
-import java.time.LocalDateTime;
-
 /**
  * 割引対象日時.
  */
@@ -13,5 +11,5 @@ public interface DrivingTimeDiscount {
      * @param exitedAt 出時間
      * @return 割引対象となる場合は true
      */
-    boolean matches(LocalDateTime enteredAt, LocalDateTime exitedAt);
+    boolean matches(DrivingDateTime enteredAt, DrivingDateTime exitedAt);
 }
