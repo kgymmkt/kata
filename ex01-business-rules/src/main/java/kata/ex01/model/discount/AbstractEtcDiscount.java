@@ -38,6 +38,6 @@ public abstract class AbstractEtcDiscount implements EtcDiscount {
 
     @Override
     public long calc(HighwayDrive highwayDrive) {
-        return this.matches(highwayDrive) ? this.discountRate.decideDiscountRate(highwayDrive) : 0L;
+        return this.discountRate.decideDiscountRate(highwayDrive);
     }
 }
