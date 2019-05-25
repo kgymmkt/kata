@@ -33,8 +33,7 @@ public class WeekdayDrivingTimeDiscount implements DrivingTimeDiscount {
     
     private boolean between(LocalDateTime dateTime, LocalTime start, LocalTime end) {
         LocalTime time = dateTime.toLocalTime();
-        return (start.isBefore(time) || start.equals(time))
-                && (time.isBefore(end) || time.equals(end));
+        return (start.isBefore(time) || start.equals(time)) && time.isBefore(end);
     }
     
     private boolean isWeekday(LocalDateTime dateTime) {
