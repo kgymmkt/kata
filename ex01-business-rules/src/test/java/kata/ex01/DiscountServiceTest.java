@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static kata.ex01.model.RouteType.RURAL;
 import static kata.ex01.model.VehicleFamily.STANDARD;
@@ -14,13 +15,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author kawasima
  */
-public class DiscountServiceTest {
-    DiscountService discountService;
-    private Driver driver(int usingCount) {
-        Driver driver = new Driver();
-        driver.setCountPerMonth(usingCount);
-        return driver;
-    }
+class DiscountServiceTest {
+    private DiscountService discountService;
 
     @BeforeEach
     void setUp() {
@@ -28,10 +24,11 @@ public class DiscountServiceTest {
     }
 
     @Test
-    public void test平日朝夕割引() {
+    void test平日朝夕割引() {
         HighwayDrive drive = new HighwayDrive();
-        drive.setEnteredAt(LocalDateTime.of(2016, 3, 31, 23, 0));
-        drive.setExitedAt(LocalDateTime.of(2016, 4, 1, 6, 30));
+        
+        drive.setEnteredAt(dateTime("2016-03-31 23:00"));
+        drive.setExitedAt(dateTime("2016-04-01 06:30"));
         drive.setDriver(driver(10));
         drive.setVehicleFamily(STANDARD);
         drive.setRouteType(RURAL);
@@ -40,10 +37,11 @@ public class DiscountServiceTest {
     }
 
     @Test
-    public void test休日朝夕は休日割が適用される() {
+    void test休日朝夕は休日割が適用される() {
         HighwayDrive drive = new HighwayDrive();
-        drive.setEnteredAt(LocalDateTime.of(2016, 4, 1, 23, 0));
-        drive.setExitedAt(LocalDateTime.of(2016, 4, 2, 6, 30));
+        
+        drive.setEnteredAt(dateTime("2016-04-01 23:00"));
+        drive.setExitedAt(dateTime("2016-04-02 06:30"));
         drive.setDriver(driver(10));
         drive.setVehicleFamily(STANDARD);
         drive.setRouteType(RURAL);
@@ -51,4 +49,15 @@ public class DiscountServiceTest {
         assertThat(discountService.calc(drive)).isEqualTo(30);
     }
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm");
+    
+    private static Driver driver(int usingCount) {
+        Driver driver = new Driver();
+        driver.setCountPerMonth(usingCount);
+        return driver;
+    }
+
+    private static LocalDateTime dateTime(String time) {
+        return LocalDateTime.parse(time, dateTimeFormatter);
+    }
 }
