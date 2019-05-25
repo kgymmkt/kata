@@ -5,7 +5,7 @@ import kata.ex01.model.HighwayDrive;
 import java.util.Objects;
 
 /**
- * ETC 割引.
+ * ETC 割引のスケルトン実装を提供する抽象クラス.
  */
 public abstract class AbstractEtcDiscount implements EtcDiscount {
     private final RouteTypeDiscount routeTypeDiscount;
